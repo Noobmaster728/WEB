@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>¡Recibido! | Jesús Hernández</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#07090d">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <header class="site-header is-scrolled">
+    <div class="container">
+      <a class="logo" href="index.html">
+        <span class="logo-mark" aria-hidden="true">JH</span>
+        <span class="logo-text"><strong>Jesús Hernández</strong><span>Preparación física oposiciones</span></span>
+      </a>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="container center-page">
+      <div>
+        <p class="eyebrow" id="ty-eyebrow">Test recibido</p>
+        <h1 id="ty-title">¡Gracias! Ya tengo tu test</h1>
+        <p class="lead" id="ty-text">Revisaré tus respuestas y te escribiré personalmente con una valoración y los siguientes pasos. Si quieres adelantarte, mándame un WhatsApp.</p>
+        <div class="hero-ctas">
+          <a class="btn btn--wa" id="ty-wa" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.69.25-1.29.18-1.41-.08-.13-.27-.2-.57-.35m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88a9.82 9.82 0 0 1 9.88 9.89c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.48-8.41Z"/></svg>
+            <span id="ty-wa-label">Escribir por WhatsApp</span>
+          </a>
+          <a class="btn btn--ghost" id="ty-booking" href="#" target="_blank" rel="noopener" hidden>Reservar llamada gratuita</a>
+          <a class="btn btn--ghost" href="index.html#oposiciones">Volver a la web</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/js/config.js"></script>
+  <script>
+    (function () {
+      var SITE = window.SITE || {};
+      var lead = null;
+      try { lead = JSON.parse(sessionStorage.getItem("jh_lead") || "null"); } catch (e) {}
+      var notDelivered = /[?&]wa=1/.test(location.search);
+      var msg = lead && lead.summary ? lead.summary : "Hola Jesús, acabo de hacer el test de nivel de tu web.";
+      var wa = document.getElementById("ty-wa");
+      wa.href = "https://wa.me/" + (SITE.contact && SITE.contact.whatsapp || "") + "?text=" + encodeURIComponent(msg);
+
+      if (lead && lead.nombre) {
+        document.getElementById("ty-title").textContent = "¡Gracias, " + lead.nombre + "!";
+      }
+      if (notDelivered) {
+        // No hay sistema de envío configurado (o falló): el lead se entrega por WhatsApp.
+        document.getElementById("ty-eyebrow").textContent = "Último paso";
+        document.getElementById("ty-text").textContent = "Pulsa el botón para enviarme tu test por WhatsApp. El mensaje ya está escrito con tus respuestas: solo tienes que darle a enviar.";
+        document.getElementById("ty-wa-label").textContent = "Enviar mi test por WhatsApp";
+      }
+      if (SITE.bookingUrl) {
+        var b = document.getElementById("ty-booking");
+        b.href = SITE.bookingUrl;
+        b.hidden = false;
+      }
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: "thank_you_view", delivered: !notDelivered });
+    })();
+  </script>
+</body>
+</html>

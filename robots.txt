@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /gracias.html
+
+# TODO: cambia el dominio
+Sitemap: https://www.tudominio.es/sitemap.xml
